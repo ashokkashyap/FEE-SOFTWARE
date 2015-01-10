@@ -1,0 +1,15 @@
+truncate table `collect_component_detail`;
+truncate table `collect_component_master`;
+truncate table `component_detail`;
+truncate table `component_master`;
+truncate table `discount_master`;
+truncate table `fee_student_discount_mapping`;
+truncate table `ign_class_master`;
+truncate table `ign_staff_master`;
+truncate table `ign_student_master`;
+truncate table `ign_student_master_history`;
+truncate table `menu_master`;
+truncate table `student_component_mapping`;
+truncate table `student_discount_mapping`;
+truncate table `ign_school_master`;
+truncate table `ign_school_session_master`;

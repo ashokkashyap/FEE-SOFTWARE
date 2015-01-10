@@ -1,0 +1,169 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="ICON" type="image/x-icon" href="~/Resources/iguardian.ico" />
+    <title>i-ERP ver 1.0</title>
+    <link href="../Style/Styler.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../jquery.treeview.css" />
+    <link rel="stylesheet" href="../red-treeview.css" />
+    <link rel="stylesheet" href="screen.css" />
+
+    <script src="../lib/jquery.js" type="text/javascript"></script>
+    <script src="../lib/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../jquery.treeview.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#browser").treeview({
+                toggle: function () {
+                    console.log("%s was toggled.", $(this).find(">span").text());
+                },
+                click: function () {
+                    $(this).attr("collapsed", "true");
+                }
+            });
+
+            $("#add").click(function () {
+                var branches = $("<li><span class='folder'>New Sublist</span><ul>" +
+				"<li><span class='file'>Item1</span></li>" +
+				"<li><span class='file'>Item2</span></li></ul></li>").appendTo("#browser");
+                $("#browser").treeview({
+                    add: branches
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="defaultScriptManager" runat="server"></asp:ScriptManager>
+        <div id="header">
+            <table border="0" width="99%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 50%" align="left">
+                        <span style="font-family: Georgia; padding-left: 50px; font-size: 30px; color: #FFFDFF;">i</span>
+                        <span style="font-family: Georgia; font-size: 50px; color: #FFFDFF;">-</span>
+                        <span style="font-family: Georgia; letter-spacing: 2px; font-size: 40px; color: #FFFDFF;">ERP</span>
+                        <br />
+                        <span style="font-family: Georgia; font-size: 12px; color: #FFFDFF; padding-left: 90px;">a complete ERP Solution</span>
+                    </td>
+                    <td style="width: 50%; padding-top: 5px;" align="right" valign="top">
+                        <span style="font-family: Georgia; font-size: 12px; color: #FFFDFF;">Welcome:&nbsp;&nbsp; 
+                        <asp:Label ID="lblLoggedUser" runat="server"></asp:Label>
+                        </span>
+                        <asp:LinkButton ID="lb" runat="server" Text="Log out" OnClick="lb_Click" ForeColor="White" Font-Bold="true"></asp:LinkButton>
+                    </td>
+                </tr>
+            </table>
+            <%--<table border="0" width="99%" cellpadding="0" cellspacing="5" style="border-color:#FFAABB; visibility:hidden;">
+                <tr>
+                    <td style="color:Black;font-family:Calibri;font-size:15px;">
+                        QuickLinks
+                    </td>
+                    <td style="color:Black;font-family:Calibri;font-size:14px;">
+                        <a href="classWiseComponentMapping.aspx">ClassWiseComponentMapping</a>
+                    </td>
+                    <td style="color:Black;font-family:Calibri;font-size:14px;">
+                        <a href="studentWiseDiscountMapping.aspx">StudentWiseDiscount</a>
+                    </td>
+                    <td style="color:Black;font-family:Calibri;font-size:14px;">
+                        <a href="collectFeeAdmissionNo.aspx">CollectFee</a>
+                    </td>
+                    <td style="color:Black;font-family:Calibri;font-size:14px;">
+                        <a href="multipleClassComponentMapping.aspx">MultipleClassComponentMapping</a>
+                    </td>
+                    <td style="color:Black;font-family:Calibri;font-size:14px;">
+                        <a href="#">QuickLinks</a>
+                    </td>
+                </tr>
+            </table>--%>
+            <div align="right" style="margin-top: 8px">
+                <span style="color: Black; font-family: Georgia">
+                    <asp:Label ID="ltrlQuickLinks" runat="server">Quick Links</asp:Label>
+                    <ajax:HoverMenuExtender ID="hvQuickLinks" runat="server" TargetControlID="ltrlQuickLinks" PopupControlID="pnlQuickLinks" OffsetY="15" OffsetX="-180"></ajax:HoverMenuExtender>
+                    <asp:Panel ID="pnlQuickLinks" runat="server" HorizontalAlign="Left" BackColor="WhiteSmoke" BorderStyle="Solid" BorderWidth="1px" Style="padding: 10px;">
+                        <a href="classWiseComponentMapping.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">ClassWiseComponentMapping</a>
+                        <br /><br />
+                        <a href="studentWiseDiscountMapping.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">StudentWiseDiscount</a>
+                        <br /><br />
+                        <a href="multipleClassComponentMapping.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">MultipleClassComponentMapping</a>
+                        <br /><br />
+                        <a href="collectFeeAdmissionNo.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">CollectFee</a>
+                        <br /><br />
+                        <a href="collectFeeSimple.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">CollectFeeSimple</a>
+                        <br /><br />
+                        <a href="paidFeeSimple.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">PaidFeeSimple</a>
+                        <br /><br />
+                        <a href="collectionReportDateWisecumPeriodWiseSimple.aspx" style="color: Black;" onmouseover="this.style.color='Red'" onmouseout="this.style.color='Black'">CollectionDPS</a>
+                    </asp:Panel>
+                </span>
+            </div>
+            <div style="overflow: scroll; float: left; width: 100%; max-height: 500px;">
+                <table cellpadding="0" cellspacing="0" width="99%">
+                    <tr>
+                        <td style="height: 500px;" valign="top">
+                            <br />
+                            <div style="border: 2px solid #006600; border-radius: 5px 5px; font-family: Trebuchet MS; font-size: 12px;">
+                                <asp:UpdatePanel ID="upnl1" runat="server">
+                                    <ContentTemplate>
+                                        <asp:TreeView ID="tvMenus" runat="server" ExpandDepth="FullyExpand" OnSelectedNodeChanged="tvMenus_SelectedNodeChanged" ImageSet="Simple2" Visible="true"></asp:TreeView>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                                <asp:Panel ID="pnlMenu" runat="server" Visible="false">
+                                </asp:Panel>
+                                <div id="main" style="display: none;">
+                                    <ul id="browser" class="filetree treeview-famfamfam">
+                                        <li><span class="folder">Folder 1</span>
+                                            <ul>
+                                                <li><span class="folder">Item 1.1</span>
+                                                    <ul>
+                                                        <li><span class="file">Item 1.1.1</span></li>
+                                                    </ul>
+                                                </li>
+                                                <li><span class="folder">Folder 2</span>
+                                                    <ul>
+                                                        <li><span class="folder">Subfolder 2.1</span>
+                                                            <ul id="folder21">
+                                                                <li><span class="file">File 2.1.1</span></li>
+                                                                <li><span class="file">File 2.1.2</span></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li><span class="folder">Subfolder 2.2</span>
+                                                            <ul>
+                                                                <li><span class="file">File 2.2.1</span></li>
+                                                                <li><span class="file">File 2.2.2</span></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="closed"><span class="folder">Folder 3 (closed at start)</span>
+                                                    <ul>
+                                                        <li><span class="file">File 3.1</span></li>
+                                                    </ul>
+                                                </li>
+                                                <li><span class="file">File 4</span></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td align="left" valign="top" style="width: 86%; padding-left: 10px;">
+                            <br />
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="footer" align="right">
+            <p style="font-family: Georgia; font-size: 12px; color: #FFFDFF;">copyright © 2013. All rights reserved Litchi Knowledge Center &nbsp;&nbsp;&nbsp;&nbsp;</p>
+        </div>
+    </form>
+</body>
+</html>
